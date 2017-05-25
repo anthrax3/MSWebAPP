@@ -1,0 +1,29 @@
+﻿@model IEnumerable<PhysioAdmin.Models.CompleteFortnightly>
+
+@{
+    ViewBag.Title = "FornightlyDiarys";
+}
+
+<h2>Fornightly Diarys</h2>
+
+<table>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.fortnight.First().DiaryStart)</th>
+        <th>@Html.DisplayNameFor(model => model.fortnight.First().FallCount)</th>
+        <th>@Html.DisplayNameFor(model => model.fortnight.First().SeriousFallCount)</th>
+        <th></th>
+    </tr>
+
+@foreach(var item in Model.First().fortnight)
+{
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.DiaryStart)</td>
+        <td>@Html.DisplayFor(modelItem => item.FallCount)</td>
+        <td>@Html.DisplayFor(modelItem => item.SeriousFallCount)</td>
+        <td>@Html.ActionLink("Extended Details","FortnightDetails", new {participantID = item.Participant_ID, diaryStart = item.DiaryStart})</td>
+    </tr>
+}
+
+</table>
+
+@Html.Partial("DailyDiary");

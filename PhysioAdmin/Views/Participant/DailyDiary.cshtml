@@ -1,0 +1,30 @@
+﻿@model IEnumerable<PhysioAdmin.Models.DailyDiary>
+
+<table class="table">
+    <tr>
+        <th
+            >@Html.DisplayNameFor(model => model.Daily_Diary_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FallCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeriousFallCount)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Daily_Diary_Date )
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FallCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeriousFallCount)
+        </td>
+    </tr>
+}
+
+</table>

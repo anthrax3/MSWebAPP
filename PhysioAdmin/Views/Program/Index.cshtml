@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PhysioAdmin.Models.Programme>
+
+@{
+    ViewBag.Title = "Programmes";
+}
+
+<h2>All Programmes</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Capacity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Manager_ID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Capacity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manager_ID)
+        </td>
+        <td>
+            @Html.ActionLink("View Participants", "Participants", new { id = item.Programme_ID }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.Programme_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Programme_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Programme_ID })
+        </td>
+    </tr>
+}
+
+</table>

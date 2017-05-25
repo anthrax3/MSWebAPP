@@ -1,0 +1,48 @@
+﻿@model IEnumerable<PhysioAdmin.Models.Participant>
+
+@{
+    ViewBag.Title = "Programme " + TempData["programme"] +  "s Participants";
+}
+
+<h2>Programme Participants</h2>
+
+<p>
+    @Html.ActionLink("Add New Participant", "Create", new {controller = "Participant" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Participant_ID )
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Participant_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.ActionLink("View Fortnightly Diary's", "Fortnight", "Participant", new { id=item.Participant_ID,  }) |
+            @Html.ActionLink("View All Daily Diary's", "AllDaily", "Participant", new { id=item.Participant_ID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink("Export by Fortnight", "ExportToCSV", new { id = ViewBag.programmeID, groupBy = "fortnight" })
+
+</p>
+<p>  
+    @Html.ActionLink("Export by Participant", "ExportToCSV", new { id = ViewBag.programmeID, groupBy = "participant" })
+
+</p>

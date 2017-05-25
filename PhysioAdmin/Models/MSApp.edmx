@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MSAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DailyDiary">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+            <PropertyRef Name="Fortnightly_Start_Date" />
+            <PropertyRef Name="Daily_Diary_Date" />
+          </Key>
+          <Property Name="Participant_ID" Type="int" Nullable="false" />
+          <Property Name="Fortnightly_Start_Date" Type="date" Nullable="false" />
+          <Property Name="Daily_Diary_Date" Type="date" Nullable="false" />
+          <Property Name="FallCount" Type="tinyint" />
+          <Property Name="SeriousFallCount" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Degradation">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+            <PropertyRef Name="Start_Date" />
+            <PropertyRef Name="Record_ID" />
+          </Key>
+          <Property Name="Participant_ID" Type="int" Nullable="false" />
+          <Property Name="Start_Date" Type="date" Nullable="false" />
+          <Property Name="Record_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Problem" Type="varchar" MaxLength="500" />
+          <Property Name="Severity" Type="varchar" MaxLength="50" />
+          <Property Name="Duration" Type="int" />
+        </EntityType>
+        <EntityType Name="FortnightlyDiary">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+            <PropertyRef Name="DiaryStart" />
+          </Key>
+          <Property Name="Participant_ID" Type="int" Nullable="false" />
+          <Property Name="DiaryStart" Type="date" Nullable="false" />
+          <Property Name="FallCount" Type="smallint" />
+          <Property Name="SeriousFallCount" Type="smallint" />
+          <Property Name="NurseVisitCount" Type="smallint" />
+          <Property Name="GPVisitCount" Type="smallint" />
+          <Property Name="SpecDocVisitCount" Type="smallint" />
+          <Property Name="EmergencyDeptCount" Type="smallint" />
+          <Property Name="DaysHospitalized" Type="smallint" />
+          <Property Name="Grounded 10 - 30" Type="smallint" />
+          <Property Name="Grounded 30 - 60" Type="smallint" />
+          <Property Name="Grounded &gt;60" Type="smallint" />
+          <Property Name="HelpFamily" Type="smallint" />
+          <Property Name="HelpFriendNeighbour" Type="smallint" />
+          <Property Name="HelpHealthProfessional" Type="smallint" />
+          <Property Name="DiaryID" Type="varchar" MaxLength="100" />
+          <Property Name="SpecDocSeen" Type="varchar" MaxLength="1000" />
+          <Property Name="OtherCount" Type="int" />
+          <Property Name="OtherSeen" Type="varchar" MaxLength="1000" />
+          <Property Name="HelpOther" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Injuries">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+            <PropertyRef Name="Fortnightly_Start_Date" />
+            <PropertyRef Name="Body_Part" />
+          </Key>
+          <Property Name="Participant_ID" Type="int" Nullable="false" />
+          <Property Name="Fortnightly_Start_Date" Type="date" Nullable="false" />
+          <Property Name="Body_Part" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Bruises" Type="tinyint" />
+          <Property Name="Cuts/Scrapes" Type="tinyint" />
+          <Property Name="Sprain/Strain" Type="tinyint" />
+          <Property Name="Dislocation" Type="tinyint" />
+          <Property Name="Broken_Bone" Type="tinyint" />
+          <Property Name="Comments" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+          </Key>
+          <Property Name="Participant_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Programme_ID" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" />
+          <Property Name="Salt" Type="varchar" MaxLength="200" />
+          <Property Name="Greeting" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Physios">
+          <Key>
+            <PropertyRef Name="Physio_ID" />
+          </Key>
+          <Property Name="Physio_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="200" />
+          <Property Name="Salt" Type="varchar" MaxLength="200" />
+          <Property Name="Password" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Programme">
+          <Key>
+            <PropertyRef Name="Programme_ID" />
+          </Key>
+          <Property Name="Programme_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Capacity" Type="int" />
+          <Property Name="Manager_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Relapses">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+            <PropertyRef Name="Start_Date" />
+            <PropertyRef Name="Record_ID" />
+          </Key>
+          <Property Name="Participant_ID" Type="int" Nullable="false" />
+          <Property Name="Start_Date" Type="date" Nullable="false" />
+          <Property Name="Record_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Relapse_Start" Type="date" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Symptoms" Type="varchar" MaxLength="500" />
+          <Property Name="ConsultHP" Type="bit" />
+          <Property Name="HPVisted" Type="varchar" MaxLength="250" />
+          <Property Name="Treatments" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityContainer Name="MSAppModelStoreContainer">
+          <EntitySet Name="DailyDiary" EntityType="Self.DailyDiary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Degradation" EntityType="Self.Degradation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FortnightlyDiary" EntityType="Self.FortnightlyDiary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Injuries" EntityType="Self.Injuries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Participant" EntityType="Self.Participant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Physios" EntityType="Self.Physios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Programme" EntityType="Self.Programme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Relapses" EntityType="Self.Relapses" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MSAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DailyDiary">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+            <PropertyRef Name="Fortnightly_Start_Date" />
+            <PropertyRef Name="Daily_Diary_Date" />
+          </Key>
+          <Property Name="Participant_ID" Type="Int32" Nullable="false" />
+          <Property Name="Fortnightly_Start_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Daily_Diary_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FallCount" Type="Byte" />
+          <Property Name="SeriousFallCount" Type="Byte" />
+        </EntityType>
+        <EntityType Name="Degradation">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+            <PropertyRef Name="Start_Date" />
+            <PropertyRef Name="Record_ID" />
+          </Key>
+          <Property Name="Participant_ID" Type="Int32" Nullable="false" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Record_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Problem" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Severity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Duration" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FortnightlyDiary">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+            <PropertyRef Name="DiaryStart" />
+          </Key>
+          <Property Name="Participant_ID" Type="Int32" Nullable="false" />
+          <Property Name="DiaryStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FallCount" Type="Int16" />
+          <Property Name="SeriousFallCount" Type="Int16" />
+          <Property Name="NurseVisitCount" Type="Int16" />
+          <Property Name="GPVisitCount" Type="Int16" />
+          <Property Name="SpecDocVisitCount" Type="Int16" />
+          <Property Name="EmergencyDeptCount" Type="Int16" />
+          <Property Name="DaysHospitalized" Type="Int16" />
+          <Property Name="Grounded_10___30" Type="Int16" />
+          <Property Name="Grounded_30___60" Type="Int16" />
+          <Property Name="Grounded__60" Type="Int16" />
+          <Property Name="HelpFamily" Type="Int16" />
+          <Property Name="HelpFriendNeighbour" Type="Int16" />
+          <Property Name="HelpHealthProfessional" Type="Int16" />
+          <Property Name="DiaryID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SpecDocSeen" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="OtherCount" Type="Int32" />
+          <Property Name="OtherSeen" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="HelpOther" Type="Int16" />
+        </EntityType>
+        <EntityType Name="Injury">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+            <PropertyRef Name="Fortnightly_Start_Date" />
+            <PropertyRef Name="Body_Part" />
+          </Key>
+          <Property Name="Participant_ID" Type="Int32" Nullable="false" />
+          <Property Name="Fortnightly_Start_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Body_Part" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Bruises" Type="Byte" />
+          <Property Name="Cuts_Scrapes" Type="Byte" />
+          <Property Name="Sprain_Strain" Type="Byte" />
+          <Property Name="Dislocation" Type="Byte" />
+          <Property Name="Broken_Bone" Type="Byte" />
+          <Property Name="Comments" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+          </Key>
+          <Property Name="Participant_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Programme_ID" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Salt" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Greeting" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Physio">
+          <Key>
+            <PropertyRef Name="Physio_ID" />
+          </Key>
+          <Property Name="Physio_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Salt" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Programme">
+          <Key>
+            <PropertyRef Name="Programme_ID" />
+          </Key>
+          <Property Name="Programme_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Capacity" Type="Int32" />
+          <Property Name="Manager_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Relaps">
+          <Key>
+            <PropertyRef Name="Participant_ID" />
+            <PropertyRef Name="Start_Date" />
+            <PropertyRef Name="Record_ID" />
+          </Key>
+          <Property Name="Participant_ID" Type="Int32" Nullable="false" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Record_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Relapse_Start" Type="DateTime" Precision="0" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Symptoms" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ConsultHP" Type="Boolean" />
+          <Property Name="HPVisted" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Treatments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="MSAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DailyDiaries" EntityType="Self.DailyDiary" />
+          <EntitySet Name="Degradations" EntityType="Self.Degradation" />
+          <EntitySet Name="FortnightlyDiaries" EntityType="Self.FortnightlyDiary" />
+          <EntitySet Name="Injuries" EntityType="Self.Injury" />
+          <EntitySet Name="Participants" EntityType="Self.Participant" />
+          <EntitySet Name="Physios" EntityType="Self.Physio" />
+          <EntitySet Name="Programmes" EntityType="Self.Programme" />
+          <EntitySet Name="Relapses" EntityType="Self.Relaps" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MSAppModelStoreContainer" CdmEntityContainer="MSAppEntities">
+          <EntitySetMapping Name="DailyDiaries">
+            <EntityTypeMapping TypeName="MSAppModel.DailyDiary">
+              <MappingFragment StoreEntitySet="DailyDiary">
+                <ScalarProperty Name="Participant_ID" ColumnName="Participant_ID" />
+                <ScalarProperty Name="Fortnightly_Start_Date" ColumnName="Fortnightly_Start_Date" />
+                <ScalarProperty Name="Daily_Diary_Date" ColumnName="Daily_Diary_Date" />
+                <ScalarProperty Name="FallCount" ColumnName="FallCount" />
+                <ScalarProperty Name="SeriousFallCount" ColumnName="SeriousFallCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Degradations">
+            <EntityTypeMapping TypeName="MSAppModel.Degradation">
+              <MappingFragment StoreEntitySet="Degradation">
+                <ScalarProperty Name="Participant_ID" ColumnName="Participant_ID" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Record_ID" ColumnName="Record_ID" />
+                <ScalarProperty Name="Problem" ColumnName="Problem" />
+                <ScalarProperty Name="Severity" ColumnName="Severity" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FortnightlyDiaries">
+            <EntityTypeMapping TypeName="MSAppModel.FortnightlyDiary">
+              <MappingFragment StoreEntitySet="FortnightlyDiary">
+                <ScalarProperty Name="Participant_ID" ColumnName="Participant_ID" />
+                <ScalarProperty Name="DiaryStart" ColumnName="DiaryStart" />
+                <ScalarProperty Name="FallCount" ColumnName="FallCount" />
+                <ScalarProperty Name="SeriousFallCount" ColumnName="SeriousFallCount" />
+                <ScalarProperty Name="NurseVisitCount" ColumnName="NurseVisitCount" />
+                <ScalarProperty Name="GPVisitCount" ColumnName="GPVisitCount" />
+                <ScalarProperty Name="SpecDocVisitCount" ColumnName="SpecDocVisitCount" />
+                <ScalarProperty Name="EmergencyDeptCount" ColumnName="EmergencyDeptCount" />
+                <ScalarProperty Name="DaysHospitalized" ColumnName="DaysHospitalized" />
+                <ScalarProperty Name="Grounded_10___30" ColumnName="Grounded 10 - 30" />
+                <ScalarProperty Name="Grounded_30___60" ColumnName="Grounded 30 - 60" />
+                <ScalarProperty Name="Grounded__60" ColumnName="Grounded &gt;60" />
+                <ScalarProperty Name="HelpFamily" ColumnName="HelpFamily" />
+                <ScalarProperty Name="HelpFriendNeighbour" ColumnName="HelpFriendNeighbour" />
+                <ScalarProperty Name="HelpHealthProfessional" ColumnName="HelpHealthProfessional" />
+                <ScalarProperty Name="DiaryID" ColumnName="DiaryID" />
+                <ScalarProperty Name="SpecDocSeen" ColumnName="SpecDocSeen" />
+                <ScalarProperty Name="OtherCount" ColumnName="OtherCount" />
+                <ScalarProperty Name="OtherSeen" ColumnName="OtherSeen" />
+                <ScalarProperty Name="HelpOther" ColumnName="HelpOther" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Injuries">
+            <EntityTypeMapping TypeName="MSAppModel.Injury">
+              <MappingFragment StoreEntitySet="Injuries">
+                <ScalarProperty Name="Participant_ID" ColumnName="Participant_ID" />
+                <ScalarProperty Name="Fortnightly_Start_Date" ColumnName="Fortnightly_Start_Date" />
+                <ScalarProperty Name="Body_Part" ColumnName="Body_Part" />
+                <ScalarProperty Name="Bruises" ColumnName="Bruises" />
+                <ScalarProperty Name="Cuts_Scrapes" ColumnName="Cuts/Scrapes" />
+                <ScalarProperty Name="Sprain_Strain" ColumnName="Sprain/Strain" />
+                <ScalarProperty Name="Dislocation" ColumnName="Dislocation" />
+                <ScalarProperty Name="Broken_Bone" ColumnName="Broken_Bone" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Participants">
+            <EntityTypeMapping TypeName="MSAppModel.Participant">
+              <MappingFragment StoreEntitySet="Participant">
+                <ScalarProperty Name="Participant_ID" ColumnName="Participant_ID" />
+                <ScalarProperty Name="Programme_ID" ColumnName="Programme_ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="Greeting" ColumnName="Greeting" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Physios">
+            <EntityTypeMapping TypeName="MSAppModel.Physio">
+              <MappingFragment StoreEntitySet="Physios">
+                <ScalarProperty Name="Physio_ID" ColumnName="Physio_ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programmes">
+            <EntityTypeMapping TypeName="MSAppModel.Programme">
+              <MappingFragment StoreEntitySet="Programme">
+                <ScalarProperty Name="Programme_ID" ColumnName="Programme_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="Manager_ID" ColumnName="Manager_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relapses">
+            <EntityTypeMapping TypeName="MSAppModel.Relaps">
+              <MappingFragment StoreEntitySet="Relapses">
+                <ScalarProperty Name="Participant_ID" ColumnName="Participant_ID" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Record_ID" ColumnName="Record_ID" />
+                <ScalarProperty Name="Relapse_Start" ColumnName="Relapse_Start" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Symptoms" ColumnName="Symptoms" />
+                <ScalarProperty Name="ConsultHP" ColumnName="ConsultHP" />
+                <ScalarProperty Name="HPVisted" ColumnName="HPVisted" />
+                <ScalarProperty Name="Treatments" ColumnName="Treatments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
